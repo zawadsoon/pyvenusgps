@@ -13,10 +13,14 @@ class VenusGPS:
 
     ATTRIBUTES_UPDATE_TO_SRAM = 0x00
     ATTRIBUTES_UPDATE_TO_SRAM_AND_FLASH = 0x01
+    ATTRIBUTES_TEMPORARILY_ENABLED = 0X02
 
     MESSAGE_TYPE_NO_OUTPUT = 0x00
     MESSAGE_TYPE_NMEA = 0x01
     MESSAGE_TYPE_BINARY = 0x02
+
+    POWER_MODE_NORMAL = 0X00
+    POWER_MODE_POWER_SAVE = 0X01
 
     def __init__(self, driver):
         self.setDriver(driver)
@@ -57,6 +61,10 @@ class VenusGPS:
 
     def configureMessageType(self, message_type = MESSAGE_TYPE_NMEA):
         self.driver.write(self.getFrame([0x09, message_type]))
+        self.driver.flush()
+
+    def configureSystemPowerMode(self, mode, attributes = ATTRIBUTES_UPDATE_TO_SRAM):
+        self.driver.write(self.getFrame([0x0c, mode, attributes]))
         self.driver.flush()
 
     
