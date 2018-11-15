@@ -18,7 +18,11 @@ driver.close()
 
 #Create new connection with higher baud rate and update driver in gps instance 
 newDriver = serial.Serial(port='/dev/ttyS0', baudrate = 115200, timeout=1)
+
 gps.setDriver(newDriver)
+
+#Sets only GAA NMEA messages
+gps.configureNMEAMessage(GGAInterval = 0x01, GSAInterval = 0x00, GSVInterval = 0x00, GLLInterval = 0x00, RMCInterval = 0x00, VTGInterval = 0x00, VTHInterval = 0x00, ZDAInterval = 0x00,)
 
 while 1:
     try:

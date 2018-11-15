@@ -47,4 +47,7 @@ class VenusGPS:
         self.driver.write(self.getFrame([0x05, 0x00, baud_rate, attributes]))
         self.driver.flush()
 
+    def configureNMEAMessage(self, GGAInterval = 0x01, GSAInterval = 0x01, GSVInterval = 0x01, GLLInterval = 0x01, RMCInterval = 0x01, VTGInterval = 0x01, VTHInterval = 0x01, ZDAInterval = 0x01, attributes = ATTRIBUTES_UPDATE_TO_SRAM): 
+        self.driver.write(self.getFrame([0x08, 0x00, GGAInterval, GSAInterval, GSVInterval, GLLInterval, RMCInterval, VTGInterval, VTHInterval, ZDAInterval, attributes])) 
+        self.driver.flush() 
     
