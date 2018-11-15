@@ -10,8 +10,9 @@ class VenusGPS:
     BAUD_RATE_38400 = 0x03
     BAUD_RATE_57600 = 0x04
     BAUD_RATE_115200 = 0x05
-    BAUD_RATE_ATTRIBUTES_UPDATE_TO_SRAM = 0x00
-    BAUD_RATE_ATTRIBUTES_UPDATE_TO_SRAM_AND_FLASH = 0x01
+
+    ATTRIBUTES_UPDATE_TO_SRAM = 0x00
+    ATTRIBUTES_UPDATE_TO_SRAM_AND_FLASH = 0x01
 
     def __init__(self, driver):
         self.setDriver(driver)
@@ -42,6 +43,8 @@ class VenusGPS:
         self.driver.write(self.getFrame([0x02, 0x00]))
         self.driver.flush()
 
-    def configureSerialPort(self, baud_rate, attributes = BAUD_RATE_ATTRIBUTES_UPDATE_TO_SRAM):
+    def configureSerialPort(self, baud_rate, attributes = ATTRIBUTES_UPDATE_TO_SRAM):
         self.driver.write(self.getFrame([0x05, 0x00, baud_rate, attributes]))
         self.driver.flush()
+
+    
