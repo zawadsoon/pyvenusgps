@@ -14,6 +14,10 @@ class VenusGPS:
     ATTRIBUTES_UPDATE_TO_SRAM = 0x00
     ATTRIBUTES_UPDATE_TO_SRAM_AND_FLASH = 0x01
 
+    MESSAGE_TYPE_NO_OUTPUT = 0x00
+    MESSAGE_TYPE_NMEA = 0x01
+    MESSAGE_TYPE_BINARY = 0x02
+
     def __init__(self, driver):
         self.setDriver(driver)
 
@@ -50,4 +54,9 @@ class VenusGPS:
     def configureNMEAMessage(self, GGAInterval = 0x01, GSAInterval = 0x01, GSVInterval = 0x01, GLLInterval = 0x01, RMCInterval = 0x01, VTGInterval = 0x01, VTHInterval = 0x01, ZDAInterval = 0x01, attributes = ATTRIBUTES_UPDATE_TO_SRAM): 
         self.driver.write(self.getFrame([0x08, 0x00, GGAInterval, GSAInterval, GSVInterval, GLLInterval, RMCInterval, VTGInterval, VTHInterval, ZDAInterval, attributes])) 
         self.driver.flush() 
+
+    def configureMessageType(self, message_type = MESSAGE_TYPE_NMEA):
+        self.driver.write(self.getFrame([0x09, message_type]))
+        self.driver.flush()
+
     

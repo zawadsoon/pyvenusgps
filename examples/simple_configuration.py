@@ -24,6 +24,8 @@ gps.setDriver(newDriver)
 #Sets only GAA NMEA messages
 gps.configureNMEAMessage(GGAInterval = 0x01, GSAInterval = 0x00, GSVInterval = 0x00, GLLInterval = 0x00, RMCInterval = 0x00, VTGInterval = 0x00, VTHInterval = 0x00, ZDAInterval = 0x00,)
 
+gps.configureMessageType(VenusGPS.MESSAGE_TYPE_NMEA)
+
 while 1:
     try:
         print(gps.read())
