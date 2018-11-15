@@ -3,7 +3,10 @@
 import time
 import serial
 from functools import reduce
-from pyvenusgps import VenusGPS
+from pyvenusgps import VenusGPS, MessageParser
+
+#Create parser object
+mgsp = MessageParser(ignore_ack = True)
 
 #create driver with baudrate wich is default
 driver = serial.Serial(port='/dev/ttyS0', baudrate = 9600, timeout=1)
@@ -37,7 +40,9 @@ gps.queryPositionUpdateRate()
 
 while 1:
     try:
-        print(gps.read())
+        msg = mgsp.parse(gps.read())
+        if msg is not None:
+            print(msg)
     except KeyboardInterrupt: 
         gps.close()
         break
